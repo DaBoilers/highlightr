@@ -12,7 +12,7 @@
         "js": ["highlight.js"]
       }
     ],
-    "permissions": ["storage", "activeTab", "scripting"],
+    "permissions": ["storage", "activeTab", "scripting", "tabs", "<all_urls>"],
     "action": {
       "default_popup": "popup.html"
     },
