@@ -12,10 +12,10 @@ def hello():
 
 @app.route('/ranked', methods=['POST'])
 def ranked():
-    if 'content' in request.form:
-        print("got request")
+    json = request.get_json(force=True, silent=True)
+    if json is not None and 'content' in json:
         return {
-            "sentences": p.get_ranked_sentences(request.form['content'])
+            "sentences": p.get_ranked_sentences(json['content'])
         }
     else:
         return {
