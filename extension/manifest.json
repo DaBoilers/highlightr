@@ -9,8 +9,7 @@
     "content_scripts": [
       {
         "matches": ["https://*/*"],
-        "css": ["my-styles.css"],
-        "js": ["content-script.js"]
+        "js": ["highlight.js"]
       }
     ],
     "permissions": ["storage", "activeTab", "scripting"],
