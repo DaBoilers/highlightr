@@ -1,11 +1,8 @@
 from flask import Flask, request
-import pickle
-import spacy
-import pytextrank
+from parser import Parser
 
 app = Flask(__name__)
-nlp = spacy.load("en_core_web_sm")
-nlp.add_pipe("textrank")
+p = Parser()
 
 @app.route('/')
 def hello():
@@ -14,13 +11,8 @@ def hello():
 @app.route('/ranked', methods=['POST'])
 def ranked():
     if 'content' in request.form:
-        doc = nlp(request.form['content'])
-        tr = doc._.textrank
-        sentences = []
-        for span in tr.summary(limit_phrases=15, limit_sentences=2):
-            sentences.append(span.text)
         return {
-            "sentences": sentences
+            "sentences": p.get_ranked_sentences(request.form['content'])
         }
     else:
         return {
