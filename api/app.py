@@ -1,8 +1,8 @@
 from flask import Flask, request
-from parser import Parser
+from articleparser import ArticleParser
 
 app = Flask(__name__)
-p = Parser()
+p = ArticleParser()
 
 @app.route('/')
 def hello():

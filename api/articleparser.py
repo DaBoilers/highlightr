@@ -2,7 +2,7 @@ import pickle
 import spacy
 import pytextrank
 
-class Parser(object):
+class ArticleParser(object):
     def __init__(self, model="en_core_web_sm"):
         self.nlp = spacy.load(model)
         self.nlp.add_pipe("textrank")
@@ -11,7 +11,7 @@ class Parser(object):
         self.nlp = spacy.load(model)
         self.nlp.add_pipe("textrank")
 
-    def get_ranked_sentences(self, text, phrase_limit=10, sentence_limit=2):
+    def get_ranked_sentences(self, text, phrase_limit=10, sentence_limit=5):
         doc = self.nlp(text)
         tr = doc._.textrank
         summary = tr.summary(
