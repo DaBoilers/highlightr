@@ -1,19 +1,26 @@
-// Initialize butotn with users's prefered color
-let changeColor = document.getElementById("changeColor");
+// Initialize buttons with users's prefered color
+let yellowButton = document.getElementById("yellowButton");
+let blueButton = document.getElementById("blueButton");
+let pinkButton = document.getElementById("pinkButton");
+let orangeButton = document.getElementById("orangeButton");
 
-chrome.storage.sync.get("color", ({ color }) => {
-  changeColor.style.backgroundColor = color;
-});
+const buttons = {yellowButton, blueButton, pinkButton, orangeButton};
 
-// When the button is clicked, inject setPageBackgroundColor into current page
-changeColor.addEventListener("click", async () => {
-  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-
-  chrome.scripting.executeScript({
-    target: { tabId: tab.id },
-    function: setPageBackgroundColor,
+for(let i = 0; i < 4; i++) {
+  chrome.storage.sync.get("color", ({ color }) => {
+    buttons[i].style.backgroundColor = color;
   });
-});
+
+  // When the yellowButton is clicked, inject setPageBackgroundColor into current page
+  buttons[i].addEventListener("click", async () => {
+    let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+
+    chrome.scripting.executeScript({
+      target: { tabId: tab.id },
+      function: setPageBackgroundColor,
+    });
+  });
+}
 
 // The body of this function will be execuetd as a content script inside the
 // current page
