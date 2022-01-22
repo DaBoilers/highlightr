@@ -12,6 +12,7 @@ class ArticleParser(object):
         self.nlp.add_pipe("textrank")
 
     def get_ranked_sentences(self, text, phrase_limit=10, sentence_limit=5):
+        for i in range(len(text)) : text[i].replace("\"", "\\\"")
         doc = self.nlp(text)
         tr = doc._.textrank
         summary = tr.summary(
