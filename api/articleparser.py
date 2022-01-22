@@ -12,6 +12,7 @@ class ArticleParser(object):
         self.nlp.add_pipe("textrank")
 
     def get_ranked_sentences(self, text, phrase_limit=10, sentence_limit=5):
+        print("\ngot content")
         doc = self.nlp(text)
         tr = doc._.textrank
         summary = tr.summary(
@@ -21,4 +22,5 @@ class ArticleParser(object):
         sentences = []
         for span in summary:
             sentences.append(span.text)
+        print(sentences)
         return sentences
