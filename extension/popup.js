@@ -3,7 +3,8 @@ let selectedClassName = "current";
 const presetButtonColors = ["#f2ff00", "#00a8db", "#ff00a2", "#ff5100"];
 
 function handleButtonClick(event) {
-  // Remove styling from the previously selected color
+  console.log("here 1");
+  console.log(this);
   let current = event.target.parentElement.querySelector(
     `.${selectedClassName}`
   );
@@ -20,6 +21,8 @@ function handleButtonClick(event) {
 }
 
 function constructOptions(buttonColors) {
+  console.log("here 2");
+  console.log(this);
   chrome.storage.sync.get("color", (data) => {
     let currentColor = data.color;
 
@@ -34,18 +37,18 @@ function constructOptions(buttonColors) {
       if (buttonColor === currentColor) {
         button.classList.add(selectedClassName);
       }
-
-      page.appendChild(button);
-
       // When the button is clicked, inject handleButtonClick into current page
-      button.addEventListener("click", async () => {
-        let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+      // button.addEventListener("click", async () => {
+      //   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
       
-        chrome.scripting.executeScript({
-          target: { tabId: tab.id },
-          function: handleButtonClick,
-        });
-      });
+      //   chrome.scripting.executeScript({
+      //     target: { tabId: tab.id },
+      //     function: handleButtonClick,
+      //   });
+      // });
+      
+      button.addEventListener("click", handleButtonClick);
+      page.appendChild(button);
     }
   });
 }
@@ -54,6 +57,8 @@ constructOptions(presetButtonColors);
 
 // The body of this function will be execuetd as a content script inside the current page
 function setPageBackgroundColor() {
+  console.log("here 3");
+  console.log(this);
   chrome.storage.sync.get("color", ({ color }) => {
     document.body.style.backgroundColor = color;
   });
