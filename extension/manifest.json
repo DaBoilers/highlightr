@@ -9,7 +9,7 @@
     "content_scripts": [
       {
         "matches": ["https://*/*"],
-        "js": ["highlight.js"]
+        "js": ["highlight.js", "node_modules/mark.js/dist/mark.js"]
       }
     ],
     "permissions": ["storage", "activeTab", "scripting", "tabs", "<all_urls>"],
